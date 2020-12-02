@@ -17,6 +17,7 @@ public class RuntimeEnvironment {
         componentAssembler = new ComponentAssembler();
         componentContainer = new ComponentContainer();
         gui = new GUI("test");
+        gui.print("test2");
 
         // Testing
         Component counterComponent;
@@ -29,13 +30,14 @@ public class RuntimeEnvironment {
         RuntimeEnvironment re = new RuntimeEnvironment();
 
         re.init();
-        re.componentContainer.getComponentContainer().get(0);
+        Component component = re.componentContainer.getComponentContainer().get(0);
 
-        re.startMethod(re.componentContainer.getComponentContainer().get(0));
+        Method method = re.getAnnotatedMethod(component, "Start");
+        component.print(method.getName());
 
     }
 
-    public void startMethod(Component component){
+    public Method getAnnotatedMethod(Component component, String annotation){ // annotation is case sensitive!
         Class startAnnotation = null;
 
         // extracting annotation
@@ -49,10 +51,13 @@ public class RuntimeEnvironment {
         for(Class javaClass : component.getClassMap().values()){
             for(Method method : javaClass.getMethods()){
                 if(method.isAnnotationPresent(startAnnotation)){
-                    System.out.println("Annotation present");
+                    return method;
                 }
             }
         }
+        return null;
     }
+
+
 
 }

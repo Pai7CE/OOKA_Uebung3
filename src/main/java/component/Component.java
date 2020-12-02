@@ -36,4 +36,8 @@ public class Component {
     public void setState(ComponentState state) {
         this.state = state;
     }
+
+    public void print(String s){
+        gui.print(s);
+    }
 }

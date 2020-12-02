@@ -1,3 +1,5 @@
+import util.ComponentContainer;
+
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -9,6 +11,9 @@ import java.util.jar.JarFile;
 public class ComponentAssembler {
 
     public static void main(String[] args) {
+        ComponentContainer componentContainer = new ComponentContainer();
+
+
 
 
     }
@@ -26,7 +31,6 @@ public class ComponentAssembler {
             if(je.isDirectory() || !je.getName().endsWith(".class")){
                 continue;
             }
-            // -6 because of .class
             String className = je.getName().substring(0,je.getName().length()-6);
             className = className.replace('/', '.');
             Class c = cl.loadClass(className);

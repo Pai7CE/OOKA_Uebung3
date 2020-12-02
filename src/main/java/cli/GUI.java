@@ -2,38 +2,34 @@ package cli;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
 
 public class GUI {
 
     JFrame frame;
+    JTextArea textArea;
 
-    public GUI() {
-        initCLI();
-    }
     // Used some code from: https://stackoverflow.com/questions/50085582/display-java-console-in-a-external-jframe
-    public void initCLI(){
-        frame = new JFrame("CLI"); // init
-        JTextArea textArea = new JTextArea(24,80);
+    public GUI(String name) {
+        frame = new JFrame(name); // init
+        textArea = new JTextArea(24,80);
 
         //frame settings
         frame.setSize(600,600);
         frame.setResizable(false);
 
+        //textarea config
         textArea.setBackground(Color.BLACK);
         textArea.setForeground(Color.LIGHT_GRAY);
         textArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
-        System.setOut(new PrintStream(new OutputStream() {
-            @Override
-            public void write(int b) throws IOException {
-                textArea.append(String.valueOf((char) b));
-            }
-        }));
+        textArea.setEditable(false);
 
         frame.add(textArea);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+
+
+    public void printInGUI(String string){
+        textArea.append(string + "\n"); // all outputs get their own line
     }
 }

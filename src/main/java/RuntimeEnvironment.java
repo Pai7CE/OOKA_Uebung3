@@ -16,7 +16,7 @@ public class RuntimeEnvironment {
     public void init() throws IOException, ClassNotFoundException {
         componentAssembler = new ComponentAssembler();
         componentContainer = new ComponentContainer();
-        gui = new GUI();
+        gui = new GUI("test");
 
         // Testing
         Component counterComponent;
@@ -48,8 +48,9 @@ public class RuntimeEnvironment {
 
         for(Class javaClass : component.getClassMap().values()){
             for(Method method : javaClass.getMethods()){
-                Annotation startMethod = method.getAnnotation(startAnnotation);
-                System.out.println(method.getName());
+                if(method.isAnnotationPresent(startAnnotation)){
+                    System.out.println("Annotation present");
+                }
             }
         }
     }

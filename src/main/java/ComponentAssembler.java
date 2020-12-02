@@ -15,7 +15,6 @@ public class ComponentAssembler {
     public Component loadJAR(String pathToJar) throws IOException, ClassNotFoundException {
         JarFile jarFile = new JarFile(pathToJar);
         Enumeration<JarEntry> e = jarFile.entries();
-        Component component = new Component();
 
         HashMap<String, Class> classMap = new HashMap<>();
 
@@ -36,6 +35,7 @@ public class ComponentAssembler {
             // setting component parameters
 
         }
+            Component component = new Component(classMap, pathToJar);
             component.setClassMap(classMap);
             return component;
     }

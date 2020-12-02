@@ -3,27 +3,20 @@ package component;
 import util.state.ComponentState;
 import util.state.Stopped;
 
+import java.util.HashMap;
+
 // component.Component which gets added to the RuntimeEnvironment
 public class Component {
 
     private ComponentState state = new Stopped(); //init as stopped since that's the first state of a component
-    private Class javaClass;
-    private String name;
+    private HashMap<String, Class> classMap;
 
-    public Class getJavaClass() {
-        return javaClass;
+    public HashMap<String, Class> getClassMap() {
+        return classMap;
     }
 
-    public void setJavaClass(Class javaClass) {
-        this.javaClass = javaClass;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setClassMap(HashMap<String, Class> classMap) {
+        this.classMap = classMap;
     }
 
     public ComponentState getState() {

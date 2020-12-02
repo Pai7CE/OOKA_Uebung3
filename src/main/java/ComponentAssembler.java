@@ -1,11 +1,11 @@
 import component.Component;
-import util.ComponentContainer;
-import util.state.Stopped;
 
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -17,6 +17,7 @@ public class ComponentAssembler {
         Enumeration<JarEntry> e = jarFile.entries();
         Component component = new Component();
 
+        HashMap<String, Class> classMap = new HashMap<>();
 
         URL[] urls = { new URL("jar:file:" + pathToJar+"!/") };
         URLClassLoader cl = URLClassLoader.newInstance(urls);
@@ -30,11 +31,12 @@ public class ComponentAssembler {
             className = className.replace('/', '.');
             Class c = cl.loadClass(className);
 
+            classMap.put(c.getName(), c);
+
             // setting component parameters
-            component.setJavaClass(c);
-            component.setName(className);
 
         }
+            component.setClassMap(classMap);
             return component;
     }
 

@@ -20,4 +20,8 @@ public class ComponentContainer {
     public void remove(Component component){
         componentContainer.remove(component); //TODO: Implement equals check maybe?
     }
+
+    public List<Component> getComponentContainer() {
+        return componentContainer;
+    }
 }

@@ -7,6 +7,24 @@ import util.state.Stopped;
 public class Component {
 
     private ComponentState state = new Stopped(); //init as stopped since that's the first state of a component
+    private Class javaClass;
+    private String name;
+
+    public Class getJavaClass() {
+        return javaClass;
+    }
+
+    public void setJavaClass(Class javaClass) {
+        this.javaClass = javaClass;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public ComponentState getState() {
         return state;

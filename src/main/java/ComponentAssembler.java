@@ -1,4 +1,6 @@
+import component.Component;
 import util.ComponentContainer;
+import util.state.Stopped;
 
 import java.io.IOException;
 import java.net.URL;
@@ -10,17 +12,10 @@ import java.util.jar.JarFile;
 
 public class ComponentAssembler {
 
-    public static void main(String[] args) {
-        ComponentContainer componentContainer = new ComponentContainer();
-
-
-
-
-    }
-
-    public void loadJAR(String pathToJar) throws IOException, ClassNotFoundException {
+    public Component loadJAR(String pathToJar) throws IOException, ClassNotFoundException {
         JarFile jarFile = new JarFile(pathToJar);
         Enumeration<JarEntry> e = jarFile.entries();
+        Component component = new Component();
 
 
         URL[] urls = { new URL("jar:file:" + pathToJar+"!/") };
@@ -35,7 +30,12 @@ public class ComponentAssembler {
             className = className.replace('/', '.');
             Class c = cl.loadClass(className);
 
+            // setting component parameters
+            component.setJavaClass(c);
+            component.setName(className);
+
         }
+            return component;
     }
 
 }

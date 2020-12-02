@@ -7,21 +7,21 @@ import java.util.List;
 
 // This container contains all used components
 public class ComponentContainer {
-    private List<Component> componentContainer;
+    private List<Component> componentList;
 
     public ComponentContainer() {
-        componentContainer = new ArrayList<Component>(); //initializing List
+        componentList = new ArrayList<Component>(); //initializing List
     }
 
     public void add(Component component){
-        componentContainer.add(component);
+        componentList.add(component);
     }
 
     public void remove(Component component){
-        componentContainer.remove(component); //TODO: Implement equals check maybe?
+        componentList.remove(component); //TODO: Implement equals check maybe?
     }
 
-    public List<Component> getComponentContainer() {
-        return componentContainer;
+    public List<Component> getComponentList() {
+        return componentList;
     }
 }

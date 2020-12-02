@@ -4,40 +4,57 @@ import cli.GUI;
 import util.state.ComponentState;
 import util.state.Stopped;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 
 // component.Component which gets added to the RuntimeEnvironment
 public class Component {
 
-    private ComponentState state; //init as stopped since that's the first state of a component
+    private ClassLoader classLoader;
+    private ComponentState state;
     private HashMap<String, Class> classMap;
-    private GUI gui;
     private String name;
+    private Method startMethod;
+    private Method stopMethod;
 
-    public Component(HashMap<String, Class> classMap, String name) {
+    public Component(ClassLoader classLoader, HashMap<String, Class> classMap, String name, Method startMethod, Method stopMethod) {
+        this.classLoader = classLoader;
         this.classMap = classMap;
         this.name = name;
-        this.gui = new GUI(name);
-        this.state = new Stopped(); // init state is stopped
+        this.startMethod = startMethod;
+        this.stopMethod = stopMethod;
+        this.state = new Stopped(); // init as stopped
     }
 
-    public HashMap<String, Class> getClassMap() {
-        return classMap;
-    }
-
-    public void setClassMap(HashMap<String, Class> classMap) {
-        this.classMap = classMap;
+    public ClassLoader getClassLoader() {
+        return classLoader;
     }
 
     public ComponentState getState() {
         return state;
     }
 
-    public void setState(ComponentState state) {
-        this.state = state;
+    public HashMap<String, Class> getClassMap() {
+        return classMap;
     }
 
-    public void print(String s){
-        gui.print(s);
+    public String getName() {
+        return name;
+    }
+
+    public Method getStartMethod() {
+        return startMethod;
+    }
+
+    public Method getStopMethod() {
+        return stopMethod;
+    }
+
+    public void nextState() {
+        this.state.nextState(this);
+    }
+
+    public void setState(ComponentState state) {
+        this.state = state;
     }
 }

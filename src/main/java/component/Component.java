@@ -1,13 +1,12 @@
 package component;
 
-import cli.GUI;
 import util.state.ComponentState;
 import util.state.Stopped;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
 
-// component.Component which gets added to the RuntimeEnvironment
+// component.Component which gets added to the runtime.RuntimeEnvironment
 public class Component {
 
     private ClassLoader classLoader;

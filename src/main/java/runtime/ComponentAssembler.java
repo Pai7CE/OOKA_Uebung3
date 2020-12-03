@@ -1,3 +1,6 @@
+package runtime;
+
+import cli.CLI;
 import component.Component;
 
 import java.io.IOException;
@@ -14,48 +17,46 @@ import java.util.jar.JarFile;
 public class ComponentAssembler {
 
     private RuntimeEnvironment runtimeEnvironment;
+    private CLI cli;
 
     public static void main(String[] args) throws IOException, ClassNotFoundException, InvocationTargetException, IllegalAccessException {
         ComponentAssembler componentAssembler = new ComponentAssembler();
-        componentAssembler.init();
-
-        // fake user inputs
-        componentAssembler.startRE();
-        componentAssembler.addComponentRE("Counter.jar");
-        componentAssembler.startComponent("Counter.jar");
-        componentAssembler.startComponent("Counter.jar");
-        componentAssembler.stopComponent("Counter_1");
+        componentAssembler.init(componentAssembler);
     }
 
-    public void init() {
+    public void init(ComponentAssembler ca) {
         runtimeEnvironment = new RuntimeEnvironment();
+        cli = new CLI("CLI", ca);
     }
 
-    public void startRE() {
-        runtimeEnvironment.start();
+    public String startRE() {
+        return runtimeEnvironment.start();
+
     }
 
-    public void stopRE(){
-        runtimeEnvironment.stop();
+    public String stopRE() throws InvocationTargetException, IllegalAccessException {
+        return runtimeEnvironment.stop();
     }
 
-    public void addComponentRE(String fullComponentName) throws IOException, ClassNotFoundException {
+    public String addComponentRE(String fullComponentName) throws IOException, ClassNotFoundException {
         Component component = classLoader(fullComponentName);
-        runtimeEnvironment.addComponentRE(component);
+        return runtimeEnvironment.addComponentRE(component);
     }
 
-    public void removeComponentRE(String fullComponentName){
-        runtimeEnvironment.removeComponentRE(fullComponentName);
+    public String removeComponentRE(String fullComponentName){
+        return  runtimeEnvironment.removeComponentRE(fullComponentName);
     }
 
-    public void startComponent(String fullComponentName){
-        runtimeEnvironment.startComponent(fullComponentName);
+    public String startComponent(String fullComponentName){
+        return runtimeEnvironment.startComponent(fullComponentName);
     }
 
-    public void stopComponent(String fullThreadName) throws InvocationTargetException, IllegalAccessException {
-        runtimeEnvironment.stopComponent(fullThreadName);
+    public String stopComponent(String fullThreadName) throws InvocationTargetException, IllegalAccessException {
+        return runtimeEnvironment.stopComponent(fullThreadName);
     }
-
+    public String getStates(){
+        return runtimeEnvironment.getStates();
+    }
 
     public Component classLoader(String pathToJar) throws IOException, ClassNotFoundException {
         JarFile jarFile = new JarFile(pathToJar);

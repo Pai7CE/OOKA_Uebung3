@@ -16,6 +16,8 @@ public class ThreadComponent extends Thread {
         this.setContextClassLoader(c.getClassLoader());
         this.startMethod = c.getStartMethod();
         this.stopMethod = c.getStopMethod();
+
+        component.nextState();
     }
 
     public Component getComponent() {
@@ -31,7 +33,6 @@ public class ThreadComponent extends Thread {
     }
 
     public void stopThreadComponent() throws InvocationTargetException, IllegalAccessException {
-        //TODO
         this.stopMethod.invoke(null);
         this.component.nextState();
     }

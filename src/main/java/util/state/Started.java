@@ -12,7 +12,7 @@ public class Started implements ComponentState {
         component.setState(new Stopped());
     }
 
-    public void showState(Component component) {
-        System.out.println(component.getState());
+    public String showState() {
+        return "Started";
     }
 }

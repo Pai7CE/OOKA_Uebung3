@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 
 public class CLI implements ActionListener {
@@ -57,13 +58,16 @@ public class CLI implements ActionListener {
         frame.add(jPanel);
 
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     public void print(String s){
         textArea.append(s + "\n"); // all outputs get their own line
         JScrollBar sb = jScrollPane.getVerticalScrollBar();
         sb.setValue(sb.getMaximum());
+    }
+
+    public void close(){
+        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     }
 
     @Override
@@ -77,7 +81,7 @@ public class CLI implements ActionListener {
                 print(componentAssembler.startRE());
             }
             else if(s[0].equals("stopRE")){
-                print(componentAssembler.stopRE());
+                componentAssembler.stopRE();
             }
             else if(s[0].equals("addComponent")){
                 print(componentAssembler.addComponentRE(s[1]));

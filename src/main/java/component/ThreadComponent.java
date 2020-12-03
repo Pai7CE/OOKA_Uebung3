@@ -1,5 +1,8 @@
 package component;
 
+import util.state.Started;
+import util.state.Stopped;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -16,8 +19,6 @@ public class ThreadComponent extends Thread {
         this.setContextClassLoader(c.getClassLoader());
         this.startMethod = c.getStartMethod();
         this.stopMethod = c.getStopMethod();
-
-        component.nextState();
     }
 
     public Component getComponent() {
@@ -26,7 +27,8 @@ public class ThreadComponent extends Thread {
 
     public void run() {
         try {
-            Object startReturnedObject = this.startMethod.invoke(null, getName(), 0);
+            component.setState(new Started());
+            this.startMethod.invoke(null, getName(), 0);
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -34,6 +36,6 @@ public class ThreadComponent extends Thread {
 
     public void stopThreadComponent() throws InvocationTargetException, IllegalAccessException {
         this.stopMethod.invoke(null);
-        this.component.nextState();
+        this.component.setState(new Stopped());
     }
 }

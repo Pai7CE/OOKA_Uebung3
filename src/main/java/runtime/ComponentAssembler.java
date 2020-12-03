@@ -34,8 +34,9 @@ public class ComponentAssembler {
 
     }
 
-    public String stopRE() throws InvocationTargetException, IllegalAccessException {
-        return runtimeEnvironment.stop();
+    public void stopRE() throws InvocationTargetException, IllegalAccessException {
+        cli.close(); // stops the gui
+        runtimeEnvironment.stop();
     }
 
     public String addComponentRE(String fullComponentName) throws IOException, ClassNotFoundException {

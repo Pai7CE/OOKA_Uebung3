@@ -1,7 +1,6 @@
-package cli;
+package view;
 
 import runtime.ComponentAssembler;
-import runtime.RuntimeEnvironment;
 
 import javax.swing.*;
 import java.awt.*;

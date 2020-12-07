@@ -1,6 +1,6 @@
 package runtime;
 
-import cli.CLI;
+import view.CLI;
 import component.Component;
 
 import java.io.IOException;

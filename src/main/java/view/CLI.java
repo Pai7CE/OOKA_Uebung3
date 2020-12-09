@@ -46,8 +46,7 @@ public class CLI implements ActionListener {
                 "removeComponent [full component name] \n" +
                 "startComponent [full component name] \n" +
                 "stopComponent [full thread name] \n" +
-                "getStates \n" +
-                "crashRE \n \n");
+                "getStates \n \n");
 
         //scroll pane config
         jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); //scrollbar appears as needed
@@ -105,6 +104,5 @@ public class CLI implements ActionListener {
         }catch(Exception ee){
             textArea.append("Error at: " + text + "\n");
         }
-
     }
 }

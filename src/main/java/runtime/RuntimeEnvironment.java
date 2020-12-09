@@ -4,13 +4,11 @@ import component.Component;
 import component.ThreadComponent;
 import util.ComponentContainer;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class RuntimeEnvironment {
 
@@ -42,8 +40,9 @@ public class RuntimeEnvironment {
         recoveryFile.delete(); //delete upon successful stopping of the JRE
         if(threadList != null){
             for(ThreadComponent threadComponent : threadList){ //stopping all running threads
-                threadComponent.stop();
-//                threadComponent.stopThreadComponent();
+//                threadComponent.stop();
+                threadComponent.stopThreadComponent();
+                threadComponent.interrupt();
             }
         }
     }
@@ -74,8 +73,13 @@ public class RuntimeEnvironment {
         for(Component component : componentContainer.getComponentList()){
             if(component.getName().equals(fullComponentName)){
                 // Thread name cuts the .jar ending and adds an identifying number
+                for(ThreadComponent thread : threadList){
+                    if(thread.getName().equals(component.getName())){
+                        return "Component already running";
+                    }
+                }
                 ThreadComponent threadComponent =
-                        new ThreadComponent(component.getName().substring(0, component.getName().length()-4) + threadCounter, component);
+                        new ThreadComponent(component.getName(), component);
                 threadList.add(threadComponent);
                 threadCounter++;
                 threadComponent.start();
@@ -100,8 +104,8 @@ public class RuntimeEnvironment {
     // gets states of the different running threads
     public String getStates(){
         String states = "";
-        for(ThreadComponent threadComponent : threadList){
-            states += threadComponent.getName() + ": " + threadComponent.getComponent().getState().showState() + "\n";
+        for(Component component : componentContainer.getComponentList()){
+            states += component.getName() + ": " + component.getState().showState()+"\n";
         }
         return states;
     }

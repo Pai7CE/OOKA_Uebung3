@@ -6,7 +6,13 @@ import util.state.Stopped;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import runtime.Inject;
+import runtime.Logger;
+
 public class ThreadComponent extends Thread {
+
+    @Inject
+    private Logger mylog;
 
     private volatile boolean stop = false;
     private Component component;
@@ -29,13 +35,16 @@ public class ThreadComponent extends Thread {
         try {
             component.setState(new Started());
             this.startMethod.invoke(null, getName(), 0);
+            mylog.sendLog("Prozess gestartet");
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
+            mylog.sendLog("Starten fehlgeschlagen");
         }
     }
 
     public void stopThreadComponent() throws InvocationTargetException, IllegalAccessException {
         this.stopMethod.invoke(null);
         this.component.setState(new Stopped());
+        mylog.sendLog("Prozess gestoppt");
     }
 }

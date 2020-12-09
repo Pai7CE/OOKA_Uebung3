@@ -2,7 +2,7 @@ package runtime;
 
 import java.sql.Timestamp;
 
-public class Logger {
+public class Logger{
 
     public void sendLog(String str){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());

@@ -12,7 +12,7 @@ import runtime.Logger;
 public class ThreadComponent extends Thread {
 
     @Inject
-    private Logger mylog;
+    private Logger mylog = new Logger();
 
     private volatile boolean stop = false;
     private Component component;
@@ -34,8 +34,8 @@ public class ThreadComponent extends Thread {
     public void run() {
         try {
             component.setState(new Started());
-            this.startMethod.invoke(null, getName(), 0);
             mylog.sendLog("Prozess gestartet");
+            this.startMethod.invoke(null, getName(), 0);
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
             mylog.sendLog("Starten fehlgeschlagen");

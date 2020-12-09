@@ -1,4 +1,4 @@
-package runtime;
+package logger;
 
 public class LoggerFactory{
 

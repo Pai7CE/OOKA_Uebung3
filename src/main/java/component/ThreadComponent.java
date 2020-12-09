@@ -6,8 +6,8 @@ import util.state.Stopped;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import runtime.Inject;
-import runtime.Logger;
+import logger.Inject;
+import logger.Logger;
 
 public class ThreadComponent extends Thread {
 
